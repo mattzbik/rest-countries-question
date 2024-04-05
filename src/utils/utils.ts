@@ -22,8 +22,9 @@ export const medianDensity = (c: Country[]) => {
 };
 
 export const standardDeviationDensity = (c: Country[]) => {
+  const mean = meanDensity(c);
   const variance = c.reduce<number[]>(
-    (prev, { populationDensity: p }) => [...prev, (p - meanDensity(c)) ** 2],
+    (prev, { populationDensity: p }) => [...prev, (p - mean) ** 2],
     []
   );
   return Math.sqrt(variance.reduce((prev, curr) => prev + curr, 0) / c.length);
