@@ -1,6 +1,6 @@
 'use client';
+import { CardLabel } from '@/components/CardLabel';
 import useCountryData from '@/hooks/useCountryData';
-import { populationDensity } from '@/utils/utils';
 import {
   Alert,
   Card,
@@ -31,17 +31,32 @@ export default function Home() {
               <Alert severity="error">{error.message}</Alert>
             </Grid>
           )}
-          {data &&
-            data?.map(({ name, area, population }, i) => (
+          {data && (
+            <Grid item xs={12}>
+              <Card raised>
+                <CardContent>
+                  <CardLabel label="All Countries Population Density Information" />
+                  <CardLabel label="Mean:" value={data.mean} />
+                  <CardLabel label="Median:" value={data.median} />
+                  <CardLabel
+                    label="Standard Deviation:"
+                    value={data.standardDeviation}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+          {data?.countries &&
+            data?.countries?.map(({ name, populationDensity }, i) => (
               <Grid key={i} item xs={12} sm={6} md={4} lg={3}>
                 <Card raised>
                   <CardContent>
-                    <Typography variant="h5">{name}</Typography>
+                    <CardLabel label={name} />
+                    {/* Slightly different from Card Label, could alter the component. */}
                     <Typography variant="body2">
-                      <strong>{`Population Density:`}</strong>
-                      {` ${populationDensity(population, area)}`}
+                      {`Population Density: `}
+                      {`${populationDensity.toLocaleString()} per Km²`}
                     </Typography>
-                    <Typography>{}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
