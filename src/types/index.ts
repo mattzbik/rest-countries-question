@@ -21,6 +21,8 @@ export type Country = {
   populationDensity: number;
   area: number;
   population: number;
+  unMember: boolean;
+  currencies: string[];
 };
 
 export type CountryData = {
@@ -28,4 +30,5 @@ export type CountryData = {
   mean: number;
   median: number;
   standardDeviation: number;
+  unMembers: number;
 };

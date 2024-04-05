@@ -1,6 +1,7 @@
 'use client';
 import { CardLabel } from '@/components/CardLabel';
 import useCountryData from '@/hooks/useCountryData';
+import { currencyCounter } from '@/utils/utils';
 import {
   Alert,
   Card,
@@ -41,6 +42,11 @@ export default function Home() {
                   <CardLabel
                     label="Standard Deviation:"
                     value={data.standardDeviation}
+                  />
+                  <CardLabel label="UN Members:" value={data.unMembers} />
+                  <CardLabel
+                    label="Countries using Euro:"
+                    value={currencyCounter(data.countries, 'EUR')}
                   />
                 </CardContent>
               </Card>

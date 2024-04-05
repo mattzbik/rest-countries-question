@@ -1,11 +1,11 @@
-// 'use client';
-
 import { Country, CountryData, CountryDataReponse, FetchData } from '@/types';
 import {
+  currencyReducer,
   meanDensity,
   medianDensity,
   populationDensity,
   standardDeviationDensity,
+  unMemberCount,
 } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 
@@ -33,26 +33,28 @@ const useCountryData = (): FetchData<CountryData> => {
           response.json();
 
         let countries = (await countriesDataResponse).reduce<Country[]>(
-          (acc, { name: { common: name }, area, population }) => {
-            acc = [
-              ...acc,
+          (
+            prev,
+            { name: { common: name }, area, population, unMember, currencies }
+          ) => {
+            prev = [
+              ...prev,
               {
                 name,
                 area,
                 population,
                 populationDensity: populationDensity(population, area),
+                unMember,
+                currencies: currencyReducer(currencies),
               },
             ];
-            return acc;
+            return prev;
           },
           []
         );
 
-        // let mean = meanDensity(countries);
-        // let median = medianDensity(countries);
-        // let standardDeviation = standardDeviationDensity(countries);
-
         let data = {
+          unMembers: unMemberCount(countries),
           mean: meanDensity(countries),
           median: medianDensity(countries),
           standardDeviation: standardDeviationDensity(countries),
@@ -66,8 +68,6 @@ const useCountryData = (): FetchData<CountryData> => {
             return 0;
           }),
         };
-
-        // console.log('test', meanDensity(countries), medianDensity(countries), standardDeviationDensity(countries));
 
         setCountryResponse({
           data: data,
