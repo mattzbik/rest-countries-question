@@ -18,6 +18,14 @@ export type CountryDataReponse = {
 
 export type Country = {
   name: string;
+  populationDensity: number;
   area: number;
   population: number;
+};
+
+export type CountryData = {
+  countries: Country[];
+  mean: number;
+  median: number;
+  standardDeviation: number;
 };
