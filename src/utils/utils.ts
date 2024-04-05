@@ -23,8 +23,17 @@ export const medianDensity = (c: Country[]) => {
 
 export const standardDeviationDensity = (c: Country[]) => {
   const variance = c.reduce<number[]>(
-    (acc, { populationDensity: p }) => [...acc, (p - meanDensity(c)) ** 2],
+    (prev, { populationDensity: p }) => [...prev, (p - meanDensity(c)) ** 2],
     []
   );
   return Math.sqrt(variance.reduce((prev, curr) => prev + curr, 0) / c.length);
 };
+
+export const unMemberCount = (c: Country[]) =>
+  c.reduce((prev, curr) => prev + +curr.unMember, 0);
+
+export const currencyReducer = (c: Object) =>
+  Object.keys(c).reduce<string[]>((prev, curr) => [...prev, curr], []);
+
+export const currencyCounter = (c: Country[], currency: string) =>
+  c.reduce((prev, { currencies }) => prev + +currencies.includes(currency), 0);
