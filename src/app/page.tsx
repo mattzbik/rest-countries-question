@@ -37,11 +37,12 @@ export default function Home() {
               <Card raised>
                 <CardContent>
                   <CardLabel label="All Countries Population Density Information" />
-                  <CardLabel label="Mean:" value={data.mean} />
-                  <CardLabel label="Median:" value={data.median} />
+                  <CardLabel label="Mean:" value={data.mean} isAreaValue />
+                  <CardLabel label="Median:" value={data.median} isAreaValue />
                   <CardLabel
                     label="Standard Deviation:"
                     value={data.standardDeviation}
+                    isAreaValue
                   />
                   <CardLabel label="UN Members:" value={data.unMembers} />
                   <CardLabel
@@ -58,11 +59,12 @@ export default function Home() {
                 <Card raised>
                   <CardContent>
                     <CardLabel label={name} />
+                    <CardLabel
+                      label="Population Density:"
+                      value={populationDensity}
+                      isAreaValue
+                    />
                     {/* Slightly different from Card Label, could alter the component. */}
-                    <Typography variant="body2">
-                      {`Population Density: `}
-                      {`${populationDensity.toLocaleString()} per Km²`}
-                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
